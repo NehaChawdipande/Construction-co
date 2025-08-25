@@ -614,21 +614,24 @@ const ContactPage = () => {
                     <MapPin className="text-amber-500" size={24} />
                     <div>
                       <h3 className="font-semibold text-lg">Our Office</h3>
-                      <p className="text-gray-600">Nagpur, Maharashtra, India</p>
+                      <p className="text-gray-600">Shop no. TF-S01, Third Floor, Darshani Commerical Complex 2, </p>
+                      <p className="text-gray-600">Masurkar Marg, Chandrashekhar Azad Chowk </p>
+                      <p className="text-gray-600">Nagpur, Maharashtra, 440008</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 animate-fade-in-up delay-200">
                     <Mail className="text-amber-500" size={24} />
                     <div>
                       <h3 className="font-semibold text-lg">Email Us</h3>
-                      <p className="text-gray-600">contact@afconstructions.com</p>
+                      <p className="text-gray-600">afskyhigh1529@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 animate-fade-in-up delay-300">
                     <Phone className="text-amber-500" size={24} />
                     <div>
                       <h3 className="font-semibold text-lg">Call Us</h3>
-                      <p className="text-gray-600">(+91) 999-9999</p>
+                      <p className="text-gray-600">(+91) 7507897502</p>
+                      <p className="text-gray-600">(+91) 7038630149</p>
                     </div>
                   </div>
                 </div>
@@ -666,9 +669,13 @@ const Footer = ({ navigateTo }) => {
           <div>
             <h3 className="text-lg font-semibold mb-6 text-gray-200">Contact</h3>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li className="flex items-center"><MapPin size={16} className="mr-2 text-amber-400" /> Nagpur, Maharashtra, India</li>
-              <li className="flex items-center"><Mail size={16} className="mr-2 text-amber-400" /> contact@afConstructions.com</li>
-              <li className="flex items-center"><Phone size={16} className="mr-2 text-amber-400" /> (+91) 999-9999</li>
+              
+              <li className="flex items-center"><MapPin size={16} className="mr-2 text-amber-400" /> <p className="text-gray-600">Shop no. TF-S01, Third Floor, Darshani Commerical Complex 2, </p>
+                      <p className="text-gray-600">Masurkar Marg, Chandrashekhar Azad Chowk </p>
+                      <p className="text-gray-600">Nagpur, Maharashtra, 440008</p></li>
+              <li className="flex items-center"><Mail size={16} className="mr-2 text-amber-400" /> afskyhigh1529@gmail.com</li>
+              <li className="flex items-center"><Phone size={16} className="mr-2 text-amber-400" /><p className="text-gray-600">(+91) 7507897502</p>
+                      <p className="text-gray-600">(+91) 7038630149</p></li>
             </ul>
           </div>
           <div className="lg:col-span-1">
@@ -679,7 +686,7 @@ const Footer = ({ navigateTo }) => {
         </div>
       </div>
       <div className="border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} AF Constructions Construction. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} AF Constructions. All Rights Reserved.</p>
       </div>
     </footer>
   );
