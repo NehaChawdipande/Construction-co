@@ -664,16 +664,19 @@ const ContactPage = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Name</label>
-                  <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required />
+                  <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+               required />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-                  <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required />
+                  <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+             required />
                   <ValidationError prefix="Email" field="email" errors={state.errors} />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Message</label>
-                  <textarea id="message" name='message' rows="5" value={message} onChange={(e) => setMessage(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required></textarea>
+                  <textarea id="message" name='message' rows="5" value={message} onChange={(e) => setMessage(e.target.value)}  className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+             required></textarea>
                   <ValidationError
                     prefix="Message"
                     field="message"
