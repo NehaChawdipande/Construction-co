@@ -199,9 +199,9 @@ const TeamMember = ({ name, title, imgSrc }) => (
 
 const ProjectCard = ({ title, category, imgSrc, describe }) => (
   <div className="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-500 hover:scale-[1.02] hover:shadow-xl">
-    <img src={imgSrc} alt={title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 aspect-[4/3]" />
+    <img src={imgSrc} alt={title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 aspect-[4/4] lg:aspect-[4/3]" />
     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent flex flex-col justify-end p-6 transition-colors duration-300 group-hover:from-amber-700/80">
-      <p className="text-amber-400 text-sm font-semibold transition-opacity duration-300 group-hover:opacity-100 opacity-80">{category}</p>
+      <p className="text-amber-300 text-sm font-bold transition-opacity duration-300 group-hover:opacity-100 opacity-100">{category}</p>
       <h3 className="text-2xl font-bold text-white mb-4 transition-transform duration-300 translate-y-2 group-hover:translate-y-0">{title}</h3>
       <p className="text-gray-100 text-md font-semibold transition-opacity duration-300 group-hover:opacity-100 opacity-100">{describe}</p>
 
@@ -585,7 +585,7 @@ const ServicesPage = () => {
   return (
     <div className="bg-gray-50">
       <section className="py-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 mt-10">
           <SectionTitle title="Our Services" subtitle="Delivering a comprehensive range of construction solutions tailored to your needs." />
           <MotionDiv className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
