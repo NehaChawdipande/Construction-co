@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm, ValidationError } from "@formspree/react";
-import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles, ArrowLeft, Train ,Shield, ChevronLeft, Factory, ChevronRight, Trowel, Hammer } from 'lucide-react';
 
 // --- Advanced Animation & Utility Components ---
 
@@ -382,9 +382,11 @@ const HomePage = ({ navigateTo }) => {
   //     </section>
 
    const images = [
-    'https://images.unsplash.com/photo-1506862047911-9815cdcb77c2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'banner1.jpg',
+    'banner3.jpg',
+    'lgbanner.jpg',
+    'wirebundles.jpg',
+    'cctv.jpg'
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -473,11 +475,12 @@ const HomePage = ({ navigateTo }) => {
       {/* Services Overview */}
       <section className="py-24 bg-gray-50 overflow-hidden">
         <div className="container mx-auto px-6">
+          
           <SectionTitle title="Our Core Services" subtitle="We offer a wide range of construction solutions, designed to meet your every need." />
           <MotionDiv className="grid md:grid-cols-3 gap-8">
             <ServiceCard icon={<Building size={40} />} title="Government Tender Expertise" description="We specialize in managing and executing government tenders with full compliance and professionalism. Every project is delivered on time with quality assurance." />
-            <ServiceCard icon={<HardHat size={40} />} title="Defence Projects" description="We undertake defence-related contracts with strict attention to standards, security protocols, and reliability in execution." />
-            <ServiceCard icon={<Wrench size={40} />} title="Labour and Workforce Supply" description="We provide skilled and semi-skilled manpower for both government and private projects, ensuring dependable workforce support." />
+            <ServiceCard icon={<Shield size={40} />} title="Defence Projects" description="We undertake defence-related contracts with strict attention to standards, security protocols, and reliability in execution." />
+            <ServiceCard icon={<Users size={40} />} title="Labour and Workforce Supply" description="We provide skilled and semi-skilled manpower for both government and private projects, ensuring dependable workforce support." />
           </MotionDiv>
           <div className="text-center mt-16">
             <button onClick={() => navigateTo('services')} className="text-amber-600 font-semibold text-lg hover:text-amber-700 transition group">
@@ -523,18 +526,6 @@ const HomePage = ({ navigateTo }) => {
           </div>
         </div>
       </section>
-
-      {/* Achievements Section with Animated Counter */}
-      {/* <section className="bg-amber-500 py-24 text-white">
-        <div className="container mx-auto px-6">
-          <SectionTitle title="Our Achievements" subtitle="A testament to our dedication and success in the industry." />
-          <MotionDiv className="grid md:grid-cols-3 gap-8">
-            <AnimatedCounter end={350} label="Projects Completed" />
-            <AnimatedCounter end={180} label="Satisfied Clients" />
-            <AnimatedCounter end={20} label="Years of Experience" />
-          </MotionDiv>
-        </div>
-      </section> */}
     </>
   );
 };
@@ -544,10 +535,10 @@ const AboutPage = () => {
   return (
     <div className="bg-white">
       <section className="py-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 mt-10">
 
           <SectionTitle title="About Us" subtitle="Pioneering the future of construction with a legacy of excellence." />
-          <MotionDiv className="grid grid-cols-1 lg:grid-cols-2 items-top gap-6 mb-16">
+          <MotionDiv className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 mb-16">
             <div className="col-span-1">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
               <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Skyhigh Constructions began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
@@ -575,11 +566,11 @@ const AboutPage = () => {
 const ServicesPage = () => {
   const services = [
     { icon: <Building size={40} />, title: "Government Tender Expertise", description: "We specialize in managing and executing government tenders with full compliance and professionalism. Every project is delivered on time with quality assurance." },
-    { icon: <HardHat size={40} />, title: "Defence Projects", description: "We undertake defence-related contracts with strict attention to standards, security protocols, and reliability in execution." },
-    { icon: <Wrench size={40} />, title: "Ordnance Factory Works", description: "Our firm handles tenders for ordnance factories, meeting technical specifications with precision and durability." },
-    { icon: <Lightbulb size={40} />, title: "Railway Infrastructure Solutions", description: "We deliver railway tender projects with efficiency, ensuring long-lasting construction and supply services." },
-    { icon: <TrendingUp size={40} />, title: "Labour & Workforce Supply", description: "We provide skilled and semi-skilled manpower for both government and private projects, ensuring dependable workforce support." },
-    { icon: <CheckCircle size={40} />, title: "Supply & Procurement Services", description: "We manage procurement and supply tenders, delivering resources, materials, and equipment as per project requirements." },
+    { icon: <Shield size={40} />, title: "Defence Projects", description: "We undertake defence-related contracts with strict attention to standards, security protocols, and reliability in execution." },
+    { icon: <Factory size={40} />, title: "Ordnance Factory Works", description: "Our firm handles tenders for ordnance factories, meeting technical specifications with precision and durability." },
+    { icon: <Train size={40} />, title: "Railway Infrastructure Solutions", description: "We deliver railway tender projects with efficiency, ensuring long-lasting construction and supply services." },
+    { icon: <Users size={40} />, title: "Labour & Workforce Supply", description: "We provide skilled and semi-skilled manpower for both government and private projects, ensuring dependable workforce support." },
+    { icon: <Wrench size={40} />, title: "Supply & Procurement Services", description: "We manage procurement and supply tenders, delivering resources, materials, and equipment as per project requirements." },
   ];
 
   return (
