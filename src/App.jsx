@@ -340,19 +340,23 @@ const Header = ({ currentPage, navigateTo }) => {
 
 // --- Page Components ---
 // Home Page
+
 const HomePage = ({ navigateTo }) => {
   const { ref: parallaxRef, style: parallaxStyle } = useParallax(-0.2);
 
-   const images = [
-    'banner1.jpg',
+  const images = [
+   'banner1.jpg',
     'ordnance.jpg',
     'banner3.jpg',
     'lgbanner.jpg',
     'wirebundles.jpg',
-    'cctv.jpg'
+    'cctv.jpg',
   ];
-
+  
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const imagesLoaded = useRef(0);
+  const totalImages = images.length;
   const intervalRef = useRef(null);
 
   // Function to handle the automatic image change
@@ -369,11 +373,30 @@ const HomePage = ({ navigateTo }) => {
     }
     startAutoSlide();
   };
-
+  
+  // Effect to preload all images
   useEffect(() => {
-    startAutoSlide();
+    images.forEach((image, index) => {
+      const img = new Image();
+      img.src = image;
+      img.onload = () => {
+        imagesLoaded.current += 1;
+        if (imagesLoaded.current === totalImages) {
+          setIsLoading(false);
+          startAutoSlide();
+        }
+      };
+      img.onerror = () => {
+        // Handle error if an image fails to load, but still increment the count
+        imagesLoaded.current += 1;
+        if (imagesLoaded.current === totalImages) {
+          setIsLoading(false);
+          startAutoSlide();
+        }
+      };
+    });
     return () => clearInterval(intervalRef.current);
-  }, [images.length]);
+  }, []);
 
   const handlePrevClick = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
@@ -385,6 +408,14 @@ const HomePage = ({ navigateTo }) => {
     resetTimer();
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <Loader className="animate-spin text-amber-500" size={48} />
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Hero Section with Image Slider and Arrows */}
@@ -392,16 +423,14 @@ const HomePage = ({ navigateTo }) => {
         {images.map((img, index) => (
           <div
             ref={parallaxRef}
-          className="hero-background-image absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out"
-          style={{
-            ...parallaxStyle,
-            backgroundImage: `url(${img})`,
-            willChange: 'transform', // Performance optimization
+            className="hero-background-image absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+            style={{
+              ...parallaxStyle,
+              backgroundImage: `url(${img})`,
+              willChange: 'transform',
               opacity: index === currentImageIndex ? 1 : 0
-
-          }}
+            }}
             key={index}
-           
           ></div>
         ))}
 
@@ -434,7 +463,6 @@ const HomePage = ({ navigateTo }) => {
           </MotionDiv>
         </div>
       </section>
-
       {/* Services Overview */}
       <section className="py-24 bg-gray-50 overflow-hidden">
         <div className="container mx-auto px-6">
