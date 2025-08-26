@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm, ValidationError } from "@formspree/react";
-import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles, ArrowLeft, Train ,Shield, ChevronLeft, Factory, ChevronRight, Trowel, Hammer } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, Users, Train ,Shield, ChevronLeft, Factory, ChevronRight } from 'lucide-react';
 
 // --- Advanced Animation & Utility Components ---
 
@@ -120,61 +120,6 @@ const CTAButton = ({ text, onClick, className = '' }) => (
   </button>
 );
 
-/**
- * A custom hook for animating a value smoothly over time.
- * @param {number} endValue - The final value to animate to.
- * @param {number} duration - The duration of the animation in milliseconds.
- * @param {boolean} trigger - A boolean to start the animation.
- * @returns {number} - The current animated value.
- */
-const useFrameAnimation = (endValue, duration, trigger) => {
-  const [value, setValue] = useState(0);
-  const startRef = useRef(null);
-
-  useEffect(() => {
-    if (!trigger) {
-      setValue(0);
-      startRef.current = null;
-      return;
-    }
-
-    const animate = (timestamp) => {
-      if (!startRef.current) {
-        startRef.current = timestamp;
-      }
-      const progress = timestamp - startRef.current;
-      const ratio = Math.min(progress / duration, 1);
-      setValue(Math.floor(ratio * endValue));
-
-      if (ratio < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    const animationFrame = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-    };
-  }, [trigger, endValue, duration]);
-
-  return value;
-};
-
-// Animated Counter component - now uses our new custom hook
-const AnimatedCounter = ({ end, label }) => {
-  const [ref, inView] = useInView({ threshold: 0.5, once: true });
-  const animatedNumber = useFrameAnimation(end, 2000, inView);
-
-  return (
-    <div ref={ref} className="text-center">
-      <div className="text-5xl lg:text-7xl font-extrabold text-amber-500">
-        {animatedNumber}
-      </div>
-      <div className="text-lg text-gray-600 mt-2">{label}</div>
-    </div>
-  );
-};
 
 // --- Reusable Components ---
 const ServiceCard = ({ icon, title, description }) => (
@@ -352,34 +297,6 @@ const Header = ({ currentPage, navigateTo }) => {
 // Home Page
 const HomePage = ({ navigateTo }) => {
   const { ref: parallaxRef, style: parallaxStyle } = useParallax(-0.2);
-  const [inView, inViewRef] = useInView({ threshold: 0.1 });
-
-  // return (
-  //   <>
-  //     {/* Hero Section with Parallax */}
-  //     <section className="min-h-[calc(100vh-6rem)] flex items-center bg-cover bg-center relative overflow-hidden">
-  //       <div
-  //         ref={parallaxRef}
-  //         className="hero-background-image"
-  //         style={{
-  //           ...parallaxStyle,
-  //           backgroundImage: 'url(https://images.unsplash.com/photo-1599995903128-531fc7fb694b?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
-  //           willChange: 'transform' // Performance optimization
-  //         }}
-  //       ></div>
-  //       <div className="absolute inset-0 bg-gray-900/70"></div>
-  //       <div className="container mx-auto px-6 text-center text-white z-10 py-20">
-  //         <MotionDiv>
-  //           <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
-  //             Building Your Vision, <span className="text-amber-400">Brick by Brick</span>
-  //           </h1>
-  //           <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-4xl mx-auto">
-  //             Your trusted partner in construction, delivering quality and excellence from foundation to finish.
-  //           </p>
-  //           <CTAButton text="Get a Free Quote" onClick={() => navigateTo('contact')} />
-  //         </MotionDiv>
-  //       </div>
-  //     </section>
 
    const images = [
     'banner1.jpg',
@@ -602,7 +519,7 @@ const ProjectsPage = () => {
   return (
     <div className="bg-white">
       <section className="py-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 mt-10">
           <SectionTitle title="Our Projects" subtitle="A portfolio of our commitment to quality and craftsmanship." />
           <MotionDiv className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
@@ -646,7 +563,7 @@ const ContactPage = () => {
   return (
     <div className="pt-12 bg-gray-50">
       <AnimatedSection className="py-12">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 mt-10">
           <SectionTitle title="Contact Us" subtitle="Let's build something great together. Reach out to us today." />
 
           <div className="flex flex-col lg:flex-row gap-12">
