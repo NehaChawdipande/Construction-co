@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useForm, ValidationError } from "@formspree/react";
 import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles } from 'lucide-react';
 
 // --- Advanced Animation & Utility Components ---
@@ -149,7 +150,7 @@ const useFrameAnimation = (endValue, duration, trigger) => {
         requestAnimationFrame(animate);
       }
     };
-    
+
     const animationFrame = requestAnimationFrame(animate);
 
     return () => {
@@ -196,12 +197,14 @@ const TeamMember = ({ name, title, imgSrc }) => (
   </div>
 );
 
-const ProjectCard = ({ title, category, imgSrc }) => (
+const ProjectCard = ({ title, category, imgSrc, describe }) => (
   <div className="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-500 hover:scale-[1.02] hover:shadow-xl">
     <img src={imgSrc} alt={title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 aspect-[4/3]" />
     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent flex flex-col justify-end p-6 transition-colors duration-300 group-hover:from-amber-700/80">
       <p className="text-amber-400 text-sm font-semibold transition-opacity duration-300 group-hover:opacity-100 opacity-80">{category}</p>
-      <h3 className="text-2xl font-bold text-white mb-2 transition-transform duration-300 translate-y-2 group-hover:translate-y-0">{title}</h3>
+      <h3 className="text-2xl font-bold text-white mb-4 transition-transform duration-300 translate-y-2 group-hover:translate-y-0">{title}</h3>
+      <p className="text-gray-100 text-md font-semibold transition-opacity duration-300 group-hover:opacity-100 opacity-100">{describe}</p>
+
     </div>
   </div>
 );
@@ -270,7 +273,7 @@ const App = () => {
         `}
       </style>
       <Header currentPage={currentPage} navigateTo={navigateTo} />
-      <main className="pt-24 min-h-screen">
+      <main className="pt-20 min-h-screen">
         {renderPage()}
       </main>
       <Footer navigateTo={navigateTo} />
@@ -296,10 +299,12 @@ const Header = ({ currentPage, navigateTo }) => {
   };
 
   return (
-    <header className="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-gray-100">
+    <header className="bg-gray-800/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-lg">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2 cursor-pointer transition-transform duration-300 hover:scale-105" onClick={() => handleNavClick('home')}>
-          <span className="text-2xl font-bold text-gray-900 tracking-tight">AF Constructions</span>
+          
+          <img src="logo.png" alt="logo"  style={{ height: '60px', width: '100px' }}/>
+          <span className="text-2xl font-bold text-gray-100 tracking-tight">AF Constructions</span>
         </div>
         <nav className="hidden lg:flex space-x-8 items-center">
           {navLinks.map((link) => (
@@ -307,7 +312,7 @@ const Header = ({ currentPage, navigateTo }) => {
               key={link.id}
               onClick={() => handleNavClick(link.id)}
               className={`text-lg font-medium transition-colors duration-300 relative group px-2 py-1
-                ${currentPage === link.id ? 'text-amber-500' : 'text-gray-600 hover:text-amber-500'}`}
+                ${currentPage === link.id ? 'text-amber-500' : 'text-gray-100 hover:text-amber-500'}`}
             >
               {link.title}
               <span className={`absolute bottom-0 left-0 h-0.5 bg-amber-500 transition-all duration-300 ${currentPage === link.id ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
@@ -316,7 +321,7 @@ const Header = ({ currentPage, navigateTo }) => {
           <CTAButton text="Get a Quote" onClick={() => handleNavClick('contact')} className="ml-4 py-2 px-6 rounded-lg text-base hover:scale-100" />
         </nav>
         <button
-          className="lg:hidden text-gray-700 hover:text-amber-500 transition-colors"
+          className="lg:hidden text-gray-100 hover:text-amber-500 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
@@ -381,9 +386,9 @@ const HomePage = ({ navigateTo }) => {
         <div className="container mx-auto px-6">
           <SectionTitle title="Our Core Services" subtitle="We offer a wide range of construction solutions, designed to meet your every need." />
           <MotionDiv className="grid md:grid-cols-3 gap-8">
-            <ServiceCard icon={<Building size={40} />} title="Commercial Construction" description="From office buildings to retail centers, we build spaces for businesses to thrive." />
-            <ServiceCard icon={<HardHat size={40} />} title="Industrial Projects" description="Specialized construction for manufacturing plants, warehouses, and industrial facilities." />
-            <ServiceCard icon={<Wrench size={40} />} title="Renovation & Remodeling" description="Transforming existing structures with modern designs and improved functionality." />
+            <ServiceCard icon={<Building size={40} />} title="Government Tender Expertise" description="We specialize in managing and executing government tenders with full compliance and professionalism. Every project is delivered on time with quality assurance." />
+            <ServiceCard icon={<HardHat size={40} />} title="Defence Projects" description="We undertake defence-related contracts with strict attention to standards, security protocols, and reliability in execution." />
+            <ServiceCard icon={<Wrench size={40} />} title="Labour and Workforce Supply" description="We provide skilled and semi-skilled manpower for both government and private projects, ensuring dependable workforce support." />
           </MotionDiv>
           <div className="text-center mt-16">
             <button onClick={() => navigateTo('services')} className="text-amber-600 font-semibold text-lg hover:text-amber-700 transition group">
@@ -451,18 +456,18 @@ const AboutPage = () => {
     <div className="bg-white">
       <section className="py-24">
         <div className="container mx-auto px-6">
-          
+
           <SectionTitle title="About AF Constructions" subtitle="Pioneering the future of construction with a legacy of excellence." />
-         <MotionDiv className="grid grid-cols-1 lg:grid-cols-2 items-top gap-6 mb-16">
-    <div className="col-span-1">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
-        <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Constructions began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
-        <p className="text-gray-600 text-lg">Our success is built on a foundation of trust, earned through transparent communication, meticulous project management, and a skilled team that takes pride in every detail.</p>
-    </div>
-    <div className="lg:col-span-2">
-        <img src="https://plus.unsplash.com/premium_photo-1671808062726-2a7ffcd6109e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Company History" className="rounded-2xl shadow-xl w-full transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl" />
-    </div>
-</MotionDiv>
+          <MotionDiv className="grid grid-cols-1 lg:grid-cols-2 items-top gap-6 mb-16">
+            <div className="col-span-1">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
+              <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Constructions began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
+              <p className="text-gray-600 text-lg">Our success is built on a foundation of trust, earned through transparent communication, meticulous project management, and a skilled team that takes pride in every detail.</p>
+            </div>
+            <div className="lg:col-span-2">
+              <img src="https://plus.unsplash.com/premium_photo-1671808062726-2a7ffcd6109e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Company History" className="rounded-2xl shadow-xl w-full transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl" />
+            </div>
+          </MotionDiv>
           <div className="text-center py-12">
             <SectionTitle title="Meet Our Leadership" subtitle="Our team is our greatest asset, with each member bringing expertise and passion to the table." />
             <MotionDiv className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -480,12 +485,12 @@ const AboutPage = () => {
 // Services Page
 const ServicesPage = () => {
   const services = [
-    { icon: <Building size={40} />, title: "Commercial Construction", description: "Comprehensive services for commercial buildings, including retail spaces, offices, and hospitality venues. We handle everything from site preparation to final inspection." },
-    { icon: <HardHat size={40} />, title: "Industrial & Civil", description: "Specialized construction for industrial facilities, warehouses, and public infrastructure projects. We have the expertise to manage large-scale, complex builds." },
-    { icon: <Wrench size={40} />, title: "Renovation & Remodeling", description: "Breathe new life into your space. We offer full-service renovation for both residential and commercial properties, focusing on quality and modern design." },
-    { icon: <Lightbulb size={40} />, title: "Design-Build", description: "A streamlined approach where we manage both the design and construction phases, ensuring a cohesive process and a single point of responsibility." },
-    { icon: <TrendingUp size={40} />, title: "Project Management", description: "Our experienced project managers oversee every aspect of your project, ensuring it stays on schedule, on budget, and meets all quality standards." },
-    { icon: <CheckCircle size={40} />, title: "General Contracting", description: "As your general contractor, we take full responsibility for the daily oversight of the construction site, management of vendors, and communication of information to all involved parties." },
+    { icon: <Building size={40} />, title: "Government Tender Expertise", description: "We specialize in managing and executing government tenders with full compliance and professionalism. Every project is delivered on time with quality assurance." },
+    { icon: <HardHat size={40} />, title: "Defence Projects", description: "We undertake defence-related contracts with strict attention to standards, security protocols, and reliability in execution." },
+    { icon: <Wrench size={40} />, title: "Ordnance Factory Works", description: "Our firm handles tenders for ordnance factories, meeting technical specifications with precision and durability." },
+    { icon: <Lightbulb size={40} />, title: "Railway Infrastructure Solutions", description: "We deliver railway tender projects with efficiency, ensuring long-lasting construction and supply services." },
+    { icon: <TrendingUp size={40} />, title: "Labour & Workforce Supply", description: "We provide skilled and semi-skilled manpower for both government and private projects, ensuring dependable workforce support." },
+    { icon: <CheckCircle size={40} />, title: "Supply & Procurement Services", description: "We manage procurement and supply tenders, delivering resources, materials, and equipment as per project requirements." },
   ];
 
   return (
@@ -507,12 +512,10 @@ const ServicesPage = () => {
 // Projects Page
 const ProjectsPage = () => {
   const projects = [
-    { title: "Downtown Office Tower", category: "Commercial", imgSrc: "https://plus.unsplash.com/premium_photo-1678903963276-8437f57a0f2e?q=80&w=674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-    { title: "City Logistics Warehouse", category: "Industrial", imgSrc: "https://images.unsplash.com/photo-1614493557324-02b61dc031bb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FyZWhvdXNlJTIwZG9tZSUyMGluZGlhfGVufDB8fDB8fHww" },
-    { title: "Heritage Building Restoration", category: "Renovation", imgSrc: "https://images.unsplash.com/photo-1600316217446-94fb90887956?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJlc3RvcmF0aW9uJTIwaG9tZSUyMGluZGlhfGVufDB8fDB8fHww" },
-    { title: "Suburban Retail Plaza", category: "Commercial", imgSrc: "https://plus.unsplash.com/premium_photo-1724766574079-a652075b281b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8UmV0YWlsJTIwcGxhemElMjBjb25zdHJ1Y3Rpb24lMjBpbmRpYXxlbnwwfHwwfHx8MA%3D%3D" },
-    { title: "Community Sports Complex", category: "Civil", imgSrc: "https://images.unsplash.com/photo-1529281364569-1b33a05ae85e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3BvcnRzJTIwY29tcGxleHxlbnwwfHwwfHx8MA%3D%3D" },
-    { title: "Modern Home Extension", category: "Renovation", imgSrc: "https://media.istockphoto.com/id/2175161902/photo/exterior-of-incomplete-building-with-scaffolding-at-construction-site.webp?a=1&b=1&s=612x612&w=0&k=20&c=vFVruYuayiV7fpM6-GGMrkVX8qF6K2Br_RcPNqLmTmk=" },
+    { title: "Ordnance Factory", category: "Industrial", imgSrc: "https://plus.unsplash.com/premium_photo-1678903963276-8437f57a0f2e?q=80&w=674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", describe: "Supplied essential raw materials including steel rods, aluminium rods, and other construction-grade resources. Ensured strict adherence to quality standards and timely delivery to support critical defence infrastructure requirements." },
+    { title: "Defense Factory", category: "Industrial", imgSrc: "https://images.unsplash.com/photo-1614493557324-02b61dc031bb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FyZWhvdXNlJTIwZG9tZSUyMGluZGlhfGVufDB8fDB8fHww", describe: 'Delivered a wide range of electrical equipment and raw materials for construction needs. Our contribution helped strengthen operational facilities while meeting defence-sector compliance and procurement protocols.'},
+    { title: "Byculla Government Hospital", category: "Commercial", imgSrc: "https://images.unsplash.com/photo-1619070284836-e850273d69ac?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", describe:"Provided telecommunications infrastructure such as wiring, CCTV systems, inverters, and related units. The project enhanced hospital safety, connectivity, and operational efficiency through reliable technology integration"},
+    { title: "Byculla Railways", category: "Commercial", imgSrc: "https://plus.unsplash.com/premium_photo-1680102982036-dcbe9a9e9a4d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", describe: 'Executed supply of telecommunications materials including wires, CCTV systems, inverters, and associated units. The work supported improved security and communication systems within the railway premises.' }
   ];
 
   return (
@@ -520,7 +523,7 @@ const ProjectsPage = () => {
       <section className="py-24">
         <div className="container mx-auto px-6">
           <SectionTitle title="Our Projects" subtitle="A portfolio of our commitment to quality and craftsmanship." />
-          <MotionDiv className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <MotionDiv className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
@@ -545,33 +548,19 @@ const ContactPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('');
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setStatus('Sending...');
-      const apiEndpoint = '/api/contact'; // This would be your backend endpoint
-  
-      try {
-        const response = await fetch(apiEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message }),
-        });
-  
-        if (response.ok) {
-          setStatus('Message sent successfully! We will get back to you shortly.');
-          setName('');
-          setEmail('');
-          setMessage('');
-        } else {
-          setStatus('Failed to send message. Please try again later.');
-        }
-      } catch (error) {
-        console.error('Submission error:', error);
-        setStatus('An error occurred. Please check your network connection.');
-      }
-    };
+  const [state, handleSubmit] = useForm("xayzykkr");
+  const [successmessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    setName('');
+    setEmail('');
+    setMessage('');
+    setSuccessMessage("Your Message has been sent! We will get back to you shortly.");
+    setTimeout(() => {
+      setSuccessMessage('')
+    }, 7000);
+  }, [state.succeeded]);
+
 
   return (
     <div className="pt-12 bg-gray-50">
@@ -590,18 +579,22 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-                  <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required />
+                  <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Message</label>
-                  <textarea id="message" rows="5" value={message} onChange={(e) => setMessage(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required></textarea>
+                  <textarea id="message" name='message' rows="5" value={message} onChange={(e) => setMessage(e.target.value)} className="w-full border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition" required></textarea>
+                  <ValidationError
+                    prefix="Message"
+                    field="message"
+                    errors={state.errors}
+                  />
                 </div>
                 <button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-md text-lg transition duration-300 transform hover:scale-105 active:scale-95">Submit Inquiry</button>
-                {status && (
-                  <div className={`mt-4 text-center text-sm ${status.includes('successfully') ? 'text-green-600' : 'text-red-600'}`}>
-                    {status}
-                  </div>
-                )}
+                <div className={`mt-4 text-center text-lg ${state.succeeded ? 'text-green-600' : 'text-red-600'}`}>
+                  {state.succeeded && <h1>{successmessage}</h1>}
+                </div>
               </form>
             </div>
 
@@ -614,24 +607,22 @@ const ContactPage = () => {
                     <MapPin className="text-amber-500" size={24} />
                     <div>
                       <h3 className="font-semibold text-lg">Our Office</h3>
-                      <p className="text-gray-600">Shop no. TF-S01, Third Floor, Darshani Commerical Complex 2, </p>
-                      <p className="text-gray-600">Masurkar Marg, Chandrashekhar Azad Chowk </p>
-                      <p className="text-gray-600">Nagpur, Maharashtra, 440008</p>
+                      <p className="text-gray-600">Shop no. TF-S01, Third Floor, Darshani Commerical Complex 2, <br /> Masurkar Marg, Chandrashekhar Azad Chowk <br /> Nagpur, Maharashtra, 440008</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 animate-fade-in-up delay-200">
                     <Mail className="text-amber-500" size={24} />
                     <div>
                       <h3 className="font-semibold text-lg">Email Us</h3>
-                      <p className="text-gray-600">afskyhigh1529@gmail.com</p>
+                      <p className="text-gray-600"><a href="mailto: afskyhigh1529@gmail.com" className="hover:text-blue-400"> afskyhigh1529@gmail.com</a></p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 animate-fade-in-up delay-300">
                     <Phone className="text-amber-500" size={24} />
                     <div>
                       <h3 className="font-semibold text-lg">Call Us</h3>
-                      <p className="text-gray-600">(+91) 7507897502</p>
-                      <p className="text-gray-600">(+91) 7038630149</p>
+                      <p className="text-gray-600"><a href="tel:+917507897502" className="hover:text-blue-400">+91-7507897502</a></p>
+                      <p className="text-gray-600"><a href="tel:+917038630149" className="hover:text-blue-400">+91-7038630149</a></p>
                     </div>
                   </div>
                 </div>
@@ -655,7 +646,7 @@ const Footer = ({ navigateTo }) => {
               <HardHat className="text-amber-500" size={32} />
               <h3 className="text-1xl font-bold">AF Constructions</h3>
             </div>
-            <p className="text-gray-400 text-sm">Building the future, restoring the past. Your trusted construction partner.</p>
+            <p className="text-gray-400 text-sm">Building the future, restoring the past. Your trusted construction partner. <br/> GSTIN : 27ABCCA9829P1ZW</p>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-6 text-gray-200">Quick Links</h3>
@@ -669,13 +660,14 @@ const Footer = ({ navigateTo }) => {
           <div>
             <h3 className="text-lg font-semibold mb-6 text-gray-200">Contact</h3>
             <ul className="space-y-4 text-gray-400 text-sm">
-              
-              <li className="flex items-center"><MapPin size={16} className="mr-2 text-amber-400" /> <p className="text-gray-600">Shop no. TF-S01, Third Floor, Darshani Commerical Complex 2, </p>
-                      <p className="text-gray-600">Masurkar Marg, Chandrashekhar Azad Chowk </p>
-                      <p className="text-gray-600">Nagpur, Maharashtra, 440008</p></li>
-              <li className="flex items-center"><Mail size={16} className="mr-2 text-amber-400" /> afskyhigh1529@gmail.com</li>
-              <li className="flex items-center"><Phone size={16} className="mr-2 text-amber-400" /><p className="text-gray-600">(+91) 7507897502</p>
-                      <p className="text-gray-600">(+91) 7038630149</p></li>
+
+              <li className="flex items-center"><MapPin size={16} className="mr-2 text-amber-400" /><p>Shop no. TF-S01, Third Floor, <br /> Darshani Commerical Complex 2, <br />
+                Masurkar Marg, <br /> Chandrashekhar Azad Chowk,
+                <br />
+                Nagpur, Maharashtra, 440008</p></li>
+              <li className="flex items-center"><Mail size={16} className="mr-2 text-amber-400" /><a href="mailto: afskyhigh1529@gmail.com" className="hover:text-blue-400"> afskyhigh1529@gmail.com</a></li>
+              <li className="flex items-center"><Phone size={16} className="mr-2 text-amber-400" /><a href="tel:+917507897502" className="hover:text-blue-400">+91-7507897502</a></li>
+              <li className="flex items-center"><Phone size={16} className="mr-2 text-amber-400" /><a href="tel:+917038630149" className="hover:text-blue-400">+91-7038630149</a></li>
             </ul>
           </div>
           <div className="lg:col-span-1">
