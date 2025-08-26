@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm, ValidationError } from "@formspree/react";
+import { motion } from 'framer-motion';
 import { Menu, X, Phone, Mail, MapPin, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, Users, Train ,Shield, ChevronLeft, Factory, ChevronRight } from 'lucide-react';
 
 // --- Advanced Animation & Utility Components ---
@@ -154,14 +155,54 @@ const ProjectCard = ({ title, category, imgSrc, describe }) => (
   </div>
 );
 
+const Loader = () => {
+    return (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-90 z-[9999] flex flex-col items-center justify-center">
+            <div className="relative w-24 h-24">
+                {/* Outer ring */}
+                <motion.div
+                    className="w-full h-full border-4 border-white border-opacity-30 rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 2, ease: "linear", repeat: Infinity }}
+                />
+                {/* Inner spinner */}
+                <motion.div
+                    className="absolute top-0 left-0 w-full h-full border-4 border-blue-500 border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, ease: "linear", repeat: Infinity }}
+                />
+            </div>
+            <motion.p
+                className="text-white text-lg mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+            >
+                Loading...
+            </motion.p>
+        </div>
+    );
+};
+
+
 // Main App Component - Manages page navigation
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
+    const [isLoading, setIsLoading] = useState(true);
 
   const navigateTo = (page) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
+
+      // Simulate an initial loading delay for a better user experience
+    useEffect(() => {
+        // Here you would typically fetch data or check for initial API responses.
+        // We'll use a simple setTimeout to simulate this.
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1500); // 1.5 seconds delay
+    }, []);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -180,7 +221,10 @@ const App = () => {
     }
   };
 
-  return (
+  return (<>
+    {isLoading ? (
+                    <Loader key="loader" />
+                ) :
     <div className="bg-white text-gray-800 font-sans">
       <style>
         {`
@@ -222,7 +266,8 @@ const App = () => {
         {renderPage()}
       </main>
       <Footer navigateTo={navigateTo} />
-    </div>
+    </div> }
+    </>
   );
 };
 
@@ -403,6 +448,23 @@ const HomePage = ({ navigateTo }) => {
           <div className="text-center mt-16">
             <button onClick={() => navigateTo('services')} className="text-amber-600 font-semibold text-lg hover:text-amber-700 transition group">
               View All Services <ArrowRight className="inline-block ml-1 group-hover:translate-x-1 transition-transform" size={20} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Overview */}
+      <section className="py-24 bg-gray-50 overflow-hidden">
+        <div className="container mx-auto px-6">
+          
+          <SectionTitle title="Our Projects" subtitle="A portfolio of our commitment to quality and craftsmanship." />
+          <MotionDiv className="grid md:grid-cols-2 gap-8">
+            <ProjectCard title= "Ordnance Factory" category="Industrial" imgSrc="ord1.jpg" describe="Supplied essential raw materials including steel rods, aluminium rods, and other construction-grade resources. Ensured strict adherence to quality standards and timely delivery to support critical defence infrastructure requirements." />
+            <ProjectCard title="Defense Factory" category="Industrial" imgSrc="https://images.unsplash.com/photo-1614493557324-02b61dc031bb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FyZWhvdXNlJTIwZG9tZSUyMGluZGlhfGVufDB8fDB8fHww" describe="Delivered a wide range of electrical equipment and raw materials for construction needs. Our contribution helped strengthen operational facilities while meeting defence-sector compliance and procurement protocols." />           
+          </MotionDiv>
+          <div className="text-center mt-16">
+            <button onClick={() => navigateTo('projects')} className="text-amber-600 font-semibold text-lg hover:text-amber-700 transition group">
+              View All Projects <ArrowRight className="inline-block ml-1 group-hover:translate-x-1 transition-transform" size={20} />
             </button>
           </div>
         </div>
