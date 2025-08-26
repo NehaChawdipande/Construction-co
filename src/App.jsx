@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm, ValidationError } from "@formspree/react";
-import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles, ArrowLeft } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // --- Advanced Animation & Utility Components ---
 
@@ -446,14 +446,14 @@ const HomePage = ({ navigateTo }) => {
           className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-900/50 text-white hover:bg-gray-900/70 transition z-20"
           aria-label="Previous image"
         >
-          <ArrowLeft size={24} />
+          <ChevronLeft size={24} />
         </button>
         <button
           onClick={handleNextClick}
           className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-900/50 text-white hover:bg-gray-900/70 transition z-20"
           aria-label="Next image"
         >
-          <ArrowRight size={24} />
+          <ChevronRight size={24} />
         </button>
 
         <div className="absolute inset-0 bg-gray-900/70"></div>
