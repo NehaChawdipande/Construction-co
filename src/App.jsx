@@ -383,6 +383,7 @@ const HomePage = ({ navigateTo }) => {
 
    const images = [
     'banner1.jpg',
+    'ordnance.jpg',
     'banner3.jpg',
     'lgbanner.jpg',
     'wirebundles.jpg',
@@ -592,7 +593,7 @@ const ServicesPage = () => {
 // Projects Page
 const ProjectsPage = () => {
   const projects = [
-    { title: "Ordnance Factory", category: "Industrial", imgSrc: "https://plus.unsplash.com/premium_photo-1678903963276-8437f57a0f2e?q=80&w=674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", describe: "Supplied essential raw materials including steel rods, aluminium rods, and other construction-grade resources. Ensured strict adherence to quality standards and timely delivery to support critical defence infrastructure requirements." },
+    { title: "Ordnance Factory", category: "Industrial", imgSrc: "ord1.jpg", describe: "Supplied essential raw materials including steel rods, aluminium rods, and other construction-grade resources. Ensured strict adherence to quality standards and timely delivery to support critical defence infrastructure requirements." },
     { title: "Defense Factory", category: "Industrial", imgSrc: "https://images.unsplash.com/photo-1614493557324-02b61dc031bb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FyZWhvdXNlJTIwZG9tZSUyMGluZGlhfGVufDB8fDB8fHww", describe: 'Delivered a wide range of electrical equipment and raw materials for construction needs. Our contribution helped strengthen operational facilities while meeting defence-sector compliance and procurement protocols.'},
     { title: "Byculla Government Hospital", category: "Commercial", imgSrc: "https://images.unsplash.com/photo-1619070284836-e850273d69ac?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", describe:"Provided telecommunications infrastructure such as wiring, CCTV systems, inverters, and related units. The project enhanced hospital safety, connectivity, and operational efficiency through reliable technology integration"},
     { title: "Byculla Railways", category: "Commercial", imgSrc: "https://plus.unsplash.com/premium_photo-1680102982036-dcbe9a9e9a4d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", describe: 'Executed supply of telecommunications materials including wires, CCTV systems, inverters, and associated units. The work supported improved security and communication systems within the railway premises.' }
