@@ -273,7 +273,7 @@ const App = () => {
         `}
       </style>
       <Header currentPage={currentPage} navigateTo={navigateTo} />
-      <main className="pt-20 min-h-screen">
+      <main className="pt-0 min-h-screen">
         {renderPage()}
       </main>
       <Footer navigateTo={navigateTo} />
@@ -423,7 +423,7 @@ const HomePage = ({ navigateTo }) => {
   return (
     <>
       {/* Hero Section with Image Slider and Arrows */}
-      <section className="min-h-[calc(100vh-5rem)] flex items-center relative overflow-hidden">
+      <section className="relative h-screen w-full flex items-center relative overflow-hidden">
         {images.map((img, index) => (
           <div
             ref={parallaxRef}
