@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm, ValidationError } from "@formspree/react";
-import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, HardHat, Building, Wrench, ArrowRight, CheckCircle, Lightbulb, TrendingUp, Users, Sparkles, ArrowLeft } from 'lucide-react';
 
 // --- Advanced Animation & Utility Components ---
 
@@ -304,7 +304,7 @@ const Header = ({ currentPage, navigateTo }) => {
         <div className="flex items-center space-x-2 cursor-pointer transition-transform duration-300 hover:scale-105" onClick={() => handleNavClick('home')}>
           
           <img src="logo.png" alt="logo"  style={{ height: '60px', width: '100px' }}/>
-          <span className="text-2xl font-bold text-gray-100 tracking-tight">AF Constructions</span>
+          <span className="text-2xl font-bold text-gray-100 tracking-tight">AF Skyhigh Constructions</span>
         </div>
         <nav className="hidden lg:flex space-x-8 items-center">
           {navLinks.map((link) => (
@@ -354,19 +354,108 @@ const HomePage = ({ navigateTo }) => {
   const { ref: parallaxRef, style: parallaxStyle } = useParallax(-0.2);
   const [inView, inViewRef] = useInView({ threshold: 0.1 });
 
+  // return (
+  //   <>
+  //     {/* Hero Section with Parallax */}
+  //     <section className="min-h-[calc(100vh-6rem)] flex items-center bg-cover bg-center relative overflow-hidden">
+  //       <div
+  //         ref={parallaxRef}
+  //         className="hero-background-image"
+  //         style={{
+  //           ...parallaxStyle,
+  //           backgroundImage: 'url(https://images.unsplash.com/photo-1599995903128-531fc7fb694b?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+  //           willChange: 'transform' // Performance optimization
+  //         }}
+  //       ></div>
+  //       <div className="absolute inset-0 bg-gray-900/70"></div>
+  //       <div className="container mx-auto px-6 text-center text-white z-10 py-20">
+  //         <MotionDiv>
+  //           <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+  //             Building Your Vision, <span className="text-amber-400">Brick by Brick</span>
+  //           </h1>
+  //           <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-4xl mx-auto">
+  //             Your trusted partner in construction, delivering quality and excellence from foundation to finish.
+  //           </p>
+  //           <CTAButton text="Get a Free Quote" onClick={() => navigateTo('contact')} />
+  //         </MotionDiv>
+  //       </div>
+  //     </section>
+
+   const images = [
+    'https://images.unsplash.com/photo-1506862047911-9815cdcb77c2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const intervalRef = useRef(null);
+
+  // Function to handle the automatic image change
+  const startAutoSlide = () => {
+    intervalRef.current = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+  };
+
+  // Function to reset the timer
+  const resetTimer = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    startAutoSlide();
+  };
+
+  useEffect(() => {
+    startAutoSlide();
+    return () => clearInterval(intervalRef.current);
+  }, [images.length]);
+
+  const handlePrevClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    resetTimer();
+  };
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    resetTimer();
+  };
+
   return (
     <>
-      {/* Hero Section with Parallax */}
-      <section className="min-h-[calc(100vh-6rem)] flex items-center bg-cover bg-center relative overflow-hidden">
-        <div
-          ref={parallaxRef}
-          className="hero-background-image"
+      {/* Hero Section with Image Slider and Arrows */}
+      <section className="min-h-[calc(100vh-5rem)] flex items-center relative overflow-hidden">
+        {images.map((img, index) => (
+          <div
+            ref={parallaxRef}
+          className="hero-background-image absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out"
           style={{
             ...parallaxStyle,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1599995903128-531fc7fb694b?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
-            willChange: 'transform' // Performance optimization
+            backgroundImage: `url(${img})`,
+            willChange: 'transform', // Performance optimization
+              opacity: index === currentImageIndex ? 1 : 0
+
           }}
-        ></div>
+            key={index}
+           
+          ></div>
+        ))}
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={handlePrevClick}
+          className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-900/50 text-white hover:bg-gray-900/70 transition z-20"
+          aria-label="Previous image"
+        >
+          <ArrowLeft size={24} />
+        </button>
+        <button
+          onClick={handleNextClick}
+          className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-gray-900/50 text-white hover:bg-gray-900/70 transition z-20"
+          aria-label="Next image"
+        >
+          <ArrowRight size={24} />
+        </button>
+
         <div className="absolute inset-0 bg-gray-900/70"></div>
         <div className="container mx-auto px-6 text-center text-white z-10 py-20">
           <MotionDiv>
@@ -401,7 +490,7 @@ const HomePage = ({ navigateTo }) => {
       {/* Why Choose Us */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
-          <SectionTitle title="Why Choose AF Constructions?" subtitle="Experience the difference of working with a partner you can trust." />
+          <SectionTitle title="Why Choose Us?" subtitle="Experience the difference of working with a partner you can trust." />
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <MotionDiv className="lg:order-2 flex flex-col items-center">
               <img src="https://plus.unsplash.com/premium_photo-1681691912442-68c4179c530c?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Construction Team" className="rounded-2xl shadow-xl w-full max-w-lg transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl" />
@@ -457,11 +546,11 @@ const AboutPage = () => {
       <section className="py-24">
         <div className="container mx-auto px-6">
 
-          <SectionTitle title="About AF Constructions" subtitle="Pioneering the future of construction with a legacy of excellence." />
+          <SectionTitle title="About Us" subtitle="Pioneering the future of construction with a legacy of excellence." />
           <MotionDiv className="grid grid-cols-1 lg:grid-cols-2 items-top gap-6 mb-16">
             <div className="col-span-1">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
-              <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Constructions began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
+              <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Skyhigh Constructions began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
               <p className="text-gray-600 text-lg">Our success is built on a foundation of trust, earned through transparent communication, meticulous project management, and a skilled team that takes pride in every detail.</p>
             </div>
             <div className="lg:col-span-2">
@@ -643,8 +732,8 @@ const Footer = ({ navigateTo }) => {
         <div className="grid md:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <HardHat className="text-amber-500" size={32} />
-              <h3 className="text-1xl font-bold">AF Constructions</h3>
+             <img src="logo.png" alt="logo"  style={{ height: '60px', width: '100px' }}/>
+              <h3 className="text-1xl font-bold">AF Skyhigh Constructions</h3>
             </div>
             <p className="text-gray-400 text-sm">Building the future, restoring the past. Your trusted construction partner. <br/> GSTIN : 27ABCCA9829P1ZW</p>
           </div>
@@ -678,7 +767,7 @@ const Footer = ({ navigateTo }) => {
         </div>
       </div>
       <div className="border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} AF Constructions. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} AF Skyhigh Constructions. All Rights Reserved.</p>
       </div>
     </footer>
   );
