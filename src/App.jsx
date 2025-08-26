@@ -294,7 +294,7 @@ const Header = ({ currentPage, navigateTo }) => {
         <div className="flex items-center space-x-2 cursor-pointer transition-transform duration-300 hover:scale-105" onClick={() => handleNavClick('home')}>
           
           <img src="logo.png" alt="logo"  style={{ height: '60px', width: '100px' }}/>
-          <span className="text-2xl font-bold text-gray-100 tracking-tight">AF Skyhigh Constructions</span>
+          <span className="text-2xl font-bold text-gray-100 tracking-tight">AF Skyhigh Construction</span>
         </div>
         <nav className="hidden lg:flex space-x-8 items-center">
           {navLinks.map((link) => (
@@ -521,7 +521,7 @@ const AboutPage = () => {
           <MotionDiv className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 mb-16">
             <div className="col-span-1">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
-              <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Skyhigh Constructions began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
+              <p className="text-gray-600 mb-4 text-lg">Founded in 2025, AF Skyhigh Construction began with a simple mission: to deliver exceptional construction services with an unwavering commitment to quality and client satisfaction. Over the years, we've grown from a small local builder into a respected firm, tackling projects of all sizes and complexities.</p>
               <p className="text-gray-600 text-lg">Our success is built on a foundation of trust, earned through transparent communication, meticulous project management, and a skilled team that takes pride in every detail.</p>
             </div>
             <div className="lg:col-span-2">
@@ -707,7 +707,7 @@ const Footer = ({ navigateTo }) => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
              <img src="logo.png" alt="logo"  style={{ height: '60px', width: '100px' }}/>
-              <h3 className="text-1xl font-bold">AF Skyhigh Constructions</h3>
+              <h3 className="text-1xl font-bold">AF Skyhigh Construction</h3>
             </div>
             <p className="text-gray-400 text-sm">Building the future, restoring the past. Your trusted construction partner. <br/> GSTIN : 27ABCCA9829P1ZW</p>
           </div>
@@ -741,7 +741,7 @@ const Footer = ({ navigateTo }) => {
         </div>
       </div>
       <div className="border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} AF Skyhigh Constructions. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} AF Skyhigh Construction. All Rights Reserved.</p>
       </div>
     </footer>
   );
