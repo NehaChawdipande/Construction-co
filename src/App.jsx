@@ -556,14 +556,6 @@ const AboutPage = () => {
               <img src="https://plus.unsplash.com/premium_photo-1671808062726-2a7ffcd6109e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Company History" className="rounded-2xl shadow-xl w-full transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl" />
             </div>
           </MotionDiv>
-          <div className="text-center py-12">
-            <SectionTitle title="Meet Our Leadership" subtitle="Our team is our greatest asset, with each member bringing expertise and passion to the table." />
-            <MotionDiv className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <TeamMember name="Aamir Jada" title="Founder & Director" imgSrc="https://placehold.co/300x300/cccccc/333333?text=Aamir+J." />
-              <TeamMember name="Faizan Pathan" title="Founder & Director" imgSrc="https://placehold.co/300x300/cccccc/333333?text=Faizan+P." />
-              {/* <TeamMember name="Mike Johnson" title="Head of Engineering" imgSrc="https://placehold.co/300x300/cccccc/333333?text=Mike+J." /> */}
-            </MotionDiv>
-          </div>
         </div>
       </section>
     </div>
