@@ -133,16 +133,6 @@ const ServiceCard = ({ icon, title, description }) => (
   </div>
 );
 
-const TeamMember = ({ name, title, imgSrc }) => (
-  <div className="text-center group p-4 transform hover:scale-105 transition-transform duration-300">
-    <div className="relative w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-4 border-white transition-shadow duration-300 group-hover:shadow-amber-500/30">
-      <img src={imgSrc} alt={name} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
-    </div>
-    <h4 className="text-xl font-bold text-gray-900">{name}</h4>
-    <p className="text-amber-600 transition-colors duration-300 group-hover:text-amber-500">{title}</p>
-  </div>
-);
-
 const ProjectCard = ({ title, category, imgSrc, describe }) => (
   <div className="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-500 hover:scale-[1.02] hover:shadow-xl">
     <img src={imgSrc} alt={title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 aspect-[4/4] lg:aspect-[4/3]" />
@@ -553,7 +543,7 @@ const AboutPage = () => {
               <p className="text-gray-600 text-lg">Our success is built on a foundation of trust, earned through transparent communication, meticulous project management, and a skilled team that takes pride in every detail.</p>
             </div>
             <div className="lg:col-span-2">
-              <img src="https://plus.unsplash.com/premium_photo-1671808062726-2a7ffcd6109e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Company History" className="rounded-2xl shadow-xl w-full transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl" />
+              <img src="about.png" alt="Company History" className="rounded-2xl shadow-xl w-full transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl" />
             </div>
           </MotionDiv>
         </div>
